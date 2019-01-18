@@ -1,0 +1,115 @@
+module SRAM(
+	input i_clk,
+	input i_rst,
+	input i_start_write,
+	input i_start_read,
+	input [12:0] i_cnt,
+	input i_draw,
+	output [19:0] o_sram_adr,
+	input [15:0] i_sram_rdata,
+	output [15:0] o_sram_wdata,
+	output o_sram_cen, // always 0
+	output o_sram_lb, // always 0
+	output o_sram_ue, // always 0
+	output o_sram_oe, 
+	output o_sram_we,
+	output o_finished, // read one data
+	input [15:0] i_dat_to_sram,
+	output [15:0] o_dat_from_sram,
+	output o_over,  // read all the data or no space left when write
+	output [1:0] o_state,
+	output o_write_done,
+	input	[19:0] i_addr
+);
+
+	localparam S_NORMAL = 0;
+	localparam S_WRITE = 1;
+	localparam S_READ = 2;
+
+	logic waiting_r;
+	logic [1:0] state_r;
+	logic [19:0] o_sram_adr_r, place_r; // place: the data length
+	logic [15:0] o_sram_wdata_r, o_dat_from_sram_r;
+	logic o_sram_oe_r, o_sram_we_r, o_finished_r, o_over_r;
+
+	assign o_sram_cen = 0;
+	assign o_sram_lb = 0;
+	assign o_sram_ue = 0;
+	assign o_sram_oe = o_sram_oe_r;
+	assign o_sram_adr = o_sram_adr_r;
+	assign o_sram_wdata = (state_r == S_WRITE)?o_sram_wdata_r:16'bz;
+	assign o_sram_we = o_sram_we_r;
+	assign o_finished = o_finished_r;
+	assign o_dat_from_sram = o_dat_from_sram_r;
+	assign o_over = o_over_r;
+	assign o_state = state_r;
+
+
+
+	always_ff @(posedge i_clk or negedge i_rst) begin
+		if (!i_rst) begin
+			o_sram_adr_r <= 0;
+			o_sram_wdata_r <= 0;
+			o_sram_we_r <= 0;
+			o_sram_oe_r <= 0;
+			o_finished_r <= 0;
+			o_dat_from_sram_r <= 0;
+			o_over_r <= 0;
+			state_r <= S_NORMAL;
+			place_r <= 0;
+			waiting_r <= 0;
+			o_write_done <= 0;
+		end else begin
+			if (state_r == S_NORMAL) begin
+				o_sram_we_r <= 0;
+				o_over_r <= 0;
+				if (i_draw == 1) begin
+					state_r <= S_WRITE;
+					o_sram_adr_r <= 0;
+					place_r <= 0;
+				end /*else if (i_start_read) begin
+					state_r <= S_READ;
+					o_sram_adr_r <= 0;
+				end*/
+			end else if (state_r == S_WRITE) begin
+				o_sram_we_r <= 1;
+				o_over_r <= 0;
+				if (o_sram_adr_r == 20'hFFFFF || o_sram_adr_r >= 7500) begin // no space or finished writing
+					o_sram_adr_r <= 0;
+					state_r <= S_READ;
+					place_r <= o_sram_adr_r;
+					o_write_done <= 1;
+				
+				end else if (i_start_write == 1) begin
+					o_sram_wdata_r <= i_dat_to_sram;
+					o_sram_adr_r <= i_cnt;
+					o_sram_we_r <= 0;
+				end
+				
+
+			end else if (state_r == S_READ) begin
+				o_write_done <= 1;
+				if (o_sram_adr_r >= 7500) begin // read all the data
+					o_sram_adr_r <= 0;
+					state_r <= 3;
+					o_over_r <= 1;
+				end else if (o_sram_we_r == 1) begin
+					waiting_r <= 0;
+					o_sram_we_r <= 0;
+					o_sram_oe_r <= 0;
+					o_finished_r <= 1;
+					o_dat_from_sram_r <= i_sram_rdata;
+				end else if (i_start_read == 1) begin // not paused
+					o_sram_adr_r <=  i_addr;
+					o_sram_we_r <= 1;
+					o_sram_oe_r <= 0;
+					waiting_r <= 1;
+				end else begin
+					o_finished_r <= 0;
+				end
+			end
+		end
+	end
+
+endmodule
+

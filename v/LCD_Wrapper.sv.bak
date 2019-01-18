@@ -1,0 +1,1248 @@
+module LCD_wrapper(
+	output [7:0] CHARACTER,
+	output [7:0] ADDRESS,
+
+	output START,
+	output CLEAR,
+	input BUSY,
+
+	input i_clk,
+	input i_rst,
+	input button2,
+	input i_draw,
+	input [8:0] x,
+	input [8:0] y,
+	input [8:0] row
+);
+
+enum{
+	INITIAL,
+	PRE_DRAW,
+	DRAWING
+}states;
+
+localparam ROW_LENGTH = 300;
+
+logic [4:0] state;
+
+logic [63:0] clock_counter;
+logic [63:0] last_clock;
+
+logic [7:0] address;
+logic [8:0] x_r, y_r;
+
+
+
+
+always_ff @(posedge i_clk or posedge i_rst) begin
+	if (i_rst) begin
+		state <= INITIAL;
+		address <= 8'b0;
+		clock_counter <= 64'b0;
+		last_clock <= 64'b0;
+	end
+	else begin
+		clock_counter <= clock_counter + 1;
+		if (state == INITIAL) begin
+			if(button2 == 1) begin
+				state <= PRE_DRAW;
+				address <= 8'h0;
+			end
+			if (clock_counter > last_clock + 10) begin
+				last_clock <= clock_counter;
+				case (address)
+					8'h00 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h00;
+									CHARACTER <= 8'h50; // P
+									address <= 8'h01;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h01 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h01;
+									CHARACTER <= 8'h72; // r
+									address <= 8'h02;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h02 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h02;
+									CHARACTER <= 8'h65; // e
+									address <= 8'h03;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h03 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h03;
+									CHARACTER <= 8'h73; // s
+									address <= 8'h04;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h04 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h04;
+									CHARACTER <= 8'h73; // s
+									address <= 8'h05;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h05 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h20; // _
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end				
+					8'h06 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h4B; // K
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h07 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h08;
+									CHARACTER <= 8'h45; // E
+									address <= 8'h09;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h08 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h08;
+									CHARACTER <= 8'h59; // Y
+									address <= 8'h09;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h09 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h08;
+									CHARACTER <= 8'h32; // 2
+									address <= 8'h09;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h0A : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h0B;
+									CHARACTER <= 8'h20; // -
+									address <= 8'h0C;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h0B : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h0B;
+									CHARACTER <= 8'h20; // -
+									address <= 8'h0C;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h0C : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h20; // _
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h0D : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h20; // _
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h0E : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h20; // _
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h0F : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h20; // _
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h40 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h20; // _
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h41 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h20; // _
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h42 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h20; // _
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h43 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h20; // _
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h44 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h20; // _
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h45 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h20; // _
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end				
+					8'h47 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h47;
+									CHARACTER <= 8'h20; // _
+									address <= 8'h48;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h48 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h20; // _
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h49 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h20; // _
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h4A : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h20; // _
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h4B : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h20; // _
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h4C : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h20; // _
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h4D : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h20; // _
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h4E : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h20; // _
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h4F : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h20; // _
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					default : state <= INITIAL;
+				endcase
+			end
+		end else if (state == PRE_DRAW) begin
+			if(i_draw == 1) begin
+				state <= DRAWING;
+				address <= 8'h0;
+			end
+			if (clock_counter > last_clock + 10) begin
+				last_clock <= clock_counter;
+				case (address)
+					8'h00 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h00;
+									CHARACTER <= 8'h54; // T
+									address <= 8'h01;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h01 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h01;
+									CHARACTER <= 8'h75; // u
+									address <= 8'h02;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h02 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h02;
+									CHARACTER <= 8'h72; // r
+									address <= 8'h03;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h03 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h03;
+									CHARACTER <= 8'h6E; // n
+									address <= 8'h04;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h04 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h04;
+									CHARACTER <= 8'h20; // -
+									address <= 8'h05;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h05 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h6F; // o
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end				
+					8'h06 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h6E; // n
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h07 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h08;
+									CHARACTER <= 8'h20; // -
+									address <= 8'h09;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h08 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h08;
+									CHARACTER <= 8'h53; // S
+									address <= 8'h09;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h09 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h08;
+									CHARACTER <= 8'h57; // W
+									address <= 8'h09;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h0A : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h0B;
+									CHARACTER <= 8'h31; // 1
+									address <= 8'h0C;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h0B : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h35; // 5
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h0C : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h20; // _
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h0D : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h61; // a
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h0E : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h6E; // n
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h0F : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h64; // d
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h40 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h70; // p
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h41 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h72; // r
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h42 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h65; // e
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h43 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h73; // s
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h44 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h73; // s
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h45 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h20; // _
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end		
+					8'h46 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h4B; // K
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end				
+					8'h47 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h47;
+									CHARACTER <= 8'h45; // E
+									address <= 8'h48;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h48 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h59; // Y
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h49 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h31; // 1
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h4A : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h20; // _
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h4B : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h20; // _
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h4C : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h20; // _
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h4D : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h20; // _
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h4E : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h20; // _
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h4F : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h20; // _
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					default : state <= INITIAL;
+				endcase
+			end
+		end else if (state == DRAWING) begin
+			if (clock_counter > last_clock + 10) begin
+				last_clock <= clock_counter;
+				case (address)
+					8'h00 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h00;
+									CHARACTER <= 8'h58; // X
+									address <= 8'h01;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h01 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h01;
+									CHARACTER <= 8'h3A; // :
+									address <= 8'h02;
+									x_r <= x;
+									y_r <= y;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h02 : begin                          //x hundredth 
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h02;
+									if(x >= 300) begin
+										CHARACTER <= 8'h33; // 3
+										x_r <= x_r - 300;
+									end else if (x >= 200) begin
+										CHARACTER <= 8'h32; //2
+										x_r <= x_r - 200;
+									end else if (x >= 100) begin
+										CHARACTER <= 8'h31; //1
+										x_r <= x_r - 100;
+									end else begin
+										CHARACTER <= 8'h20; //-
+									end
+									address <= 8'h03;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h03 : begin                          //x tenth 
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h03;
+									if(x >= 90) begin
+										CHARACTER <= 8'h39; // 9
+										x_r <= x_r - 90;
+									end else if(x >= 80) begin
+										CHARACTER <= 8'h38; // 8
+										x_r <= x_r - 80;
+									end else if (x >= 70) begin
+										CHARACTER <= 8'h37; //7
+										x_r <= x_r - 70;
+									end else if (x >= 60) begin
+										CHARACTER <= 8'h36; //6
+										x_r <= x_r - 60;
+									end else begin (x >= 50)
+										CHARACTER <= 8'h35; //5
+										x_r <= x_r - 50;
+									end else if(x >= 40) begin
+										CHARACTER <= 8'h34; // 4
+										x_r <= x_r - 40;
+									end else if(x >= 30) begin
+										CHARACTER <= 8'h33; // 3
+										x_r <= x_r - 30;
+									end else if (x >= 20) begin
+										CHARACTER <= 8'h32; //2
+										x_r <= x_r - 20;
+									end else if (x >= 10) begin
+										CHARACTER <= 8'h31; //1
+										x_r <= x_r - 10;
+									end else begin
+										CHARACTER <= 8'h30; //0
+									end
+									address <= 8'h04;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h04 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h04;
+									if(x == 9) begin
+										CHARACTER <= 8'h39; // 9
+									end else if(x == 8) begin
+										CHARACTER <= 8'h38; // 8
+									end else if (x == 7) begin
+										CHARACTER <= 8'h37; //7
+									end else if (x == 6) begin
+										CHARACTER <= 8'h36; //6
+									end else begin (x == 5)
+										CHARACTER <= 8'h35; //5
+									end else if(x == 4) begin
+										CHARACTER <= 8'h34; // 4
+									end else if(x == 3) begin
+										CHARACTER <= 8'h33; // 3
+									end else if (x == 2) begin
+										CHARACTER <= 8'h32; //2
+									end else if (x == 1) begin
+										CHARACTER <= 8'h31; //1
+									end else begin
+										CHARACTER <= 8'h30; //0
+									end
+									address <= 8'h05;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h05 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h6F; // o
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end				
+					8'h06 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h6E; // n
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h07 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h08;
+									CHARACTER <= 8'h20; // -
+									address <= 8'h09;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h08 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h08;
+									CHARACTER <= 8'h53; // S
+									address <= 8'h09;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h09 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h08;
+									CHARACTER <= 8'h44; // D
+									address <= 8'h09;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h0A : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h0B;
+									CHARACTER <= 8'h72; // r
+									address <= 8'h0C;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h0B : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h61; // a
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h0C : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h77; // w
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h0D : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h69; // i
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h0E : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h6E; // n
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h0F : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h67; // g
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h40 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h59; // Y
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h41 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h3A; // :
+									address <= 8'h07;
+									x_r <= x;
+									y_r <= y;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h42 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									if(y >= 300) begin
+										CHARACTER <= 8'h33; // 3
+										y_r <= y_r - 300;
+									end else if (y >= 200) begin
+										CHARACTER <= 8'h32; //2
+										y_r <= y_r - 200;
+									end else if (y >= 100) begin
+										CHARACTER <= 8'h31; //1
+										y_r <= y_r - 100;
+									end else begin
+										CHARACTER <= 8'h20; //-
+									end
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h43 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									if(y >= 90) begin
+										CHARACTER <= 8'h39; // 9
+										y_r <= y_r - 90;
+									end else if(y >= 80) begin
+										CHARACTER <= 8'h38; // 8
+										y_r <= y_r - 80;
+									end else if (y >= 70) begin
+										CHARACTER <= 8'h37; //7
+										y_r <= y_r - 70;
+									end else if (y >= 60) begin
+										CHARACTER <= 8'h36; //6
+										y_r <= y_r - 60;
+									end else begin (y >= 50)
+										CHARACTER <= 8'h35; //5
+										y_r <= y_r - 50;
+									end else if(y >= 40) begin
+										CHARACTER <= 8'h34; // 4
+										y_r <= y_r - 40;
+									end else if(y >= 30) begin
+										CHARACTER <= 8'h33; // 3
+										y_r <= y_r - 30;
+									end else if (y >= 20) begin
+										CHARACTER <= 8'h32; //2
+										y_r <= y_r - 20;
+									end else if (y >= 10) begin
+										CHARACTER <= 8'h31; //1
+										y_r <= y_r - 10;
+									end else begin
+										CHARACTER <= 8'h30; //0
+									end
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h44 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									if(y == 9) begin
+										CHARACTER <= 8'h39; // 9
+									end else if(y == 8) begin
+										CHARACTER <= 8'h38; // 8
+									end else if (y == 7) begin
+										CHARACTER <= 8'h37; //7
+									end else if (y == 6) begin
+										CHARACTER <= 8'h36; //6
+									end else begin (y == 5)
+										CHARACTER <= 8'h35; //5
+									end else if(y == 4) begin
+										CHARACTER <= 8'h34; // 4
+									end else if(y == 3) begin
+										CHARACTER <= 8'h33; // 3
+									end else if (y == 2) begin
+										CHARACTER <= 8'h32; //2
+									end else if (y == 1) begin
+										CHARACTER <= 8'h31; //1
+									end else begin
+										CHARACTER <= 8'h30; //0
+									end
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h45 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= 8'h20; // _
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end		
+					8'h46 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= (row >= ROW_LENGTH / 10 * 1)?8'hFF:8'h20; // cube
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end				
+					8'h47 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h47;
+									CHARACTER <= (row >= ROW_LENGTH / 10 * 2)?8'hFF:8'h20; // cube
+									address <= 8'h48;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h48 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= (row >= ROW_LENGTH / 10 * 3)?8'hFF:8'h20; // cube
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h49 : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= (row >= ROW_LENGTH / 10 * 4)?8'hFF:8'h20; // cube
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h4A : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= (row >= ROW_LENGTH / 10 * 5)?8'hFF:8'h20; // cube
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h4B : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= (row >= ROW_LENGTH / 10 * 6)?8'hFF:8'h20; // cube
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h4C : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= (row >= ROW_LENGTH / 10 * 7)?8'hFF:8'h20; // cube
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h4D : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= (row >= ROW_LENGTH / 10 * 8)?8'hFF:8'h20; // cube
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h4E : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= (row >= ROW_LENGTH / 10 * 9)?8'hFF:8'h20; // cube
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					8'h4F : begin
+								if (!BUSY) begin
+									START <= 1;
+									ADDRESS <= 8'h05;
+									CHARACTER <= (row >= ROW_LENGTH)?8'hFF:8'h20; // cube
+									address <= 8'h07;
+								end
+								else begin
+									START <= 0;
+								end
+							end
+					default : state <= INITIAL;
+				endcase
+			end
+		end
+	end
+end
+
+endmodule

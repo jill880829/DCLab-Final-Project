@@ -1,0 +1,8 @@
+Info (10281): Verilog HDL Declaration information at LCD_Wrapper.sv(3): object "ADDRESS" differs only in case from object "address" in the same scope
+Info (10281): Verilog HDL Declaration information at LCD.sv(14): object "ADDRESS" differs only in case from object "address" in the same scope
+Info (10281): Verilog HDL Declaration information at LCD.sv(13): object "CHARACTER" differs only in case from object "character" in the same scope
+Info (10281): Verilog HDL Declaration information at LCD.sv(9): object "BUSY" differs only in case from object "busy" in the same scope
+Warning (10273): Verilog HDL warning at SRAM2.sv(40): extended using "x" or "z"
+Warning (10273): Verilog HDL warning at Sdram_Control.v(320): extended using "x" or "z"
+Warning (10273): Verilog HDL warning at DE2_115_CAMERA.v(511): extended using "x" or "z"
+Info (10281): Verilog HDL Declaration information at motor3.sv(36): object "down" differs only in case from object "DOWN" in the same scope

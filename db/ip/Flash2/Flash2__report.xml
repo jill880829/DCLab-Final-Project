@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy
+ date="2018.12.05.17:37:31"
+ outputDirectory="C:/altera/15.0/quartus/test_SDcard/Example/db/ip/Flash2/">
+ <perimeter>
+  <parameter
+     name="AUTO_GENERATION_ID"
+     type="Integer"
+     defaultValue="0"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_UNIQUE_ID"
+     type="String"
+     defaultValue=""
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_DEVICE_FAMILY"
+     type="String"
+     defaultValue="Cyclone IV E"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_DEVICE"
+     type="String"
+     defaultValue="EP4CE115F29C7"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_DEVICE_SPEEDGRADE"
+     type="String"
+     defaultValue="7"
+     onHdl="0"
+     affectsHdl="1" />
+  <interface name="flash_addr" kind="conduit" start="0">
+   <property name="associatedClock" value="" />
+   <property name="associatedReset" value="" />
+   <port name="flash_addr" direction="output" role="flash_addr" width="19" />
+  </interface>
+  <interface name="flash_data" kind="conduit" start="0">
+   <property name="associatedClock" value="" />
+   <property name="associatedReset" value="" />
+   <port name="flash_data" direction="bidir" role="flash_data" width="16" />
+  </interface>
+  <interface name="flash_nce" kind="conduit" start="0">
+   <property name="associatedClock" value="" />
+   <property name="associatedReset" value="" />
+   <port name="flash_nce" direction="output" role="flash_nce" width="1" />
+  </interface>
+  <interface name="flash_noe" kind="conduit" start="0">
+   <property name="associatedClock" value="" />
+   <property name="associatedReset" value="" />
+   <port name="flash_noe" direction="output" role="flash_noe" width="1" />
+  </interface>
+  <interface name="flash_nwe" kind="conduit" start="0">
+   <property name="associatedClock" value="" />
+   <property name="associatedReset" value="" />
+   <port name="flash_nwe" direction="output" role="flash_nwe" width="1" />
+  </interface>
+  <interface name="pfl_flash_access_granted" kind="conduit" start="0">
+   <property name="associatedClock" value="" />
+   <property name="associatedReset" value="" />
+   <port
+       name="pfl_flash_access_granted"
+       direction="input"
+       role="pfl_flash_access_granted"
+       width="1" />
+  </interface>
+  <interface name="pfl_flash_access_request" kind="conduit" start="0">
+   <property name="associatedClock" value="" />
+   <property name="associatedReset" value="" />
+   <port
+       name="pfl_flash_access_request"
+       direction="output"
+       role="pfl_flash_access_request"
+       width="1" />
+  </interface>
+  <interface name="pfl_nreset" kind="conduit" start="0">
+   <property name="associatedClock" value="" />
+   <property name="associatedReset" value="" />
+   <port name="pfl_nreset" direction="input" role="pfl_nreset" width="1" />
+  </interface>
+ </perimeter>
+ <entity
+   path=""
+   parameterizationKey="Flash2:1.0:AUTO_DEVICE=EP4CE115F29C7,AUTO_DEVICE_FAMILY=Cyclone IV E,AUTO_DEVICE_SPEEDGRADE=7,AUTO_GENERATION_ID=1544002649,AUTO_UNIQUE_ID=(altera_parallel_flash_loader:15.0:ADDR_WIDTH=19,BURST_MODE=0,BURST_MODE_INTEL=0,BURST_MODE_LATENCY_COUNT=4,BURST_MODE_NUMONYX=0,BURST_MODE_SPANSION=0,CLK_DIVISOR=1,CONF_DATA_WIDTH=1,CONF_WAIT_TIMER_WIDTH=16,DCLK_DIVISOR=1,DECOMPRESSOR_MODE=NONE,DISABLE_CRC_CHECKBOX=false,ENHANCED_FLASH_PROGRAMMING=false,EXTRA_ADDR_BYTE=0,FEATURES_CFG=0,FEATURES_PGM=1,FIFO_SIZE=16,FLASH_BURST_EXTRA_CYCLE=0,FLASH_DATA_WIDTH=16,FLASH_ECC_CHECKBOX=false,FLASH_NRESET_CHECKBOX=false,FLASH_NRESET_COUNTER=1,FLASH_STATIC_WAIT_WIDTH=15,FLASH_TYPE=CFI_FLASH,INTENDED_DEVICE_FAMILY=Cyclone IV E,NFLASH_MFC=NUMONYX,NORMAL_MODE=1,NRB_ADDR=65667072,N_FLASH=1,OPTION_BITS_START_ADDRESS=0,PAGE_CLK_DIVISOR=1,PAGE_MODE=0,PFL_RSU_WATCHDOG_ENABLED=false,QFLASH_FAST_SPEED=false,QFLASH_MFC=ALTERA,QSPI_DATA_DELAY=0,QSPI_DATA_DELAY_COUNT=1,RSU_WATCHDOG_COUNTER=100000000,SAFE_MODE_HALT=0,SAFE_MODE_RETRY=1,SAFE_MODE_REVERT=0,SAFE_MODE_REVERT_ADDR=0,TRISTATE_CHECKBOX=false,US_UNIT_COUNTER=1,clock_frequency=100.0,dclk_divisor_combo=1,decompressor_combo=None,disable_crc_check=true,enhanced_flash_programming_combo=Area,fifo_size_combo=16,flash_access_time=100,flash_data_width_combo=16 bits,flash_device_combo=CFI 8 Mbit,flash_nreset_check=false,flash_type_combo=CFI Parallel Flash,fpga_conf_scheme_combo=PS (passive serial),nflash_access_time=100,nflash_data_width_combo=8 bits,nflash_device_combo=NAND 512 Mbit,nflash_mfc_combo=Micron(NAND),nflash_rb_edit=0,num_flash_combo=1,num_nflash_combo=1,num_qflash_combo=4,operating_mode_combo=Flash Programming,option_bit_address=0,qflash_mfc_combo=Macronix,qflash_size_combo=EPCQ 16 Mbit,qspi_size_combo=QSPI 8 Mbit,read_modes_combo=Normal Mode,reconfigure_checkbox=false,rsu_watchdog_checkbox=false,rsu_watchdog_counter_edit=100.0,safe_mode_combo=Halt,safe_mode_revert_edit=0)"
+   instancePathKey="Flash2"
+   kind="Flash2"
+   version="1.0"
+   name="Flash2">
+  <parameter name="AUTO_GENERATION_ID" value="1544002649" />
+  <parameter name="AUTO_DEVICE" value="EP4CE115F29C7" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone IV E" />
+  <parameter name="AUTO_UNIQUE_ID" value="" />
+  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="7" />
+  <generatedFiles>
+   <file
+       path="C:/altera/15.0/quartus/test_SDcard/Example/db/ip/Flash2/Flash2.v"
+       type="VERILOG" />
+  </generatedFiles>
+  <childGeneratedFiles>
+   <file
+       path="C:/altera/15.0/quartus/test_SDcard/Example/db/ip/Flash2/submodules/altera_parallel_flash_loader.v"
+       type="VERILOG"
+       attributes="" />
+  </childGeneratedFiles>
+  <sourceFiles>
+   <file path="C:/altera/15.0/quartus/test_SDcard/Example/Flash2.qsys" />
+  </sourceFiles>
+  <childSourceFiles>
+   <file
+       path="C:/altera/15.0/ip/altera/altera_parallel_flash_loader/altera_parallel_flash_loader_hw.tcl" />
+  </childSourceFiles>
+  <messages>
+   <message level="Debug" culprit="Flash2">queue size: 0 starting:Flash2 "Flash2"</message>
+   <message level="Progress" culprit="min"></message>
+   <message level="Progress" culprit="max"></message>
+   <message level="Progress" culprit="current"></message>
+   <message level="Progress" culprit="current"></message>
+   <message level="Progress" culprit="current"></message>
+   <message level="Debug">Transform: CustomInstructionTransform</message>
+   <message level="Debug">No custom instruction connections, skipping transform </message>
+   <message level="Debug" culprit="merlin_custom_instruction_transform"><![CDATA[After transform: <b>1</b> modules, <b>0</b> connections]]></message>
+   <message level="Debug">Transform: MMTransform</message>
+   <message level="Debug">Transform: InterruptMapperTransform</message>
+   <message level="Debug">Transform: InterruptSyncTransform</message>
+   <message level="Debug">Transform: InterruptFanoutTransform</message>
+   <message level="Debug">Transform: AvalonStreamingTransform</message>
+   <message level="Debug">Transform: ResetAdaptation</message>
+   <message level="Debug" culprit="Flash2"><![CDATA["<b>Flash2</b>" reuses <b>altera_parallel_flash_loader</b> "<b>submodules/altera_parallel_flash_loader</b>"]]></message>
+   <message level="Debug" culprit="Flash2">queue size: 0 starting:altera_parallel_flash_loader "submodules/altera_parallel_flash_loader"</message>
+   <message level="Info" culprit="parallel_flash_loader_0">generating top-level entity altera_parallel_flash_loader</message>
+   <message level="Info" culprit="parallel_flash_loader_0"><![CDATA["<b>Flash2</b>" instantiated <b>altera_parallel_flash_loader</b> "<b>parallel_flash_loader_0</b>"]]></message>
+  </messages>
+ </entity>
+ <entity
+   path="submodules/"
+   parameterizationKey="altera_parallel_flash_loader:15.0:ADDR_WIDTH=19,BURST_MODE=0,BURST_MODE_INTEL=0,BURST_MODE_LATENCY_COUNT=4,BURST_MODE_NUMONYX=0,BURST_MODE_SPANSION=0,CLK_DIVISOR=1,CONF_DATA_WIDTH=1,CONF_WAIT_TIMER_WIDTH=16,DCLK_DIVISOR=1,DECOMPRESSOR_MODE=NONE,DISABLE_CRC_CHECKBOX=false,ENHANCED_FLASH_PROGRAMMING=false,EXTRA_ADDR_BYTE=0,FEATURES_CFG=0,FEATURES_PGM=1,FIFO_SIZE=16,FLASH_BURST_EXTRA_CYCLE=0,FLASH_DATA_WIDTH=16,FLASH_ECC_CHECKBOX=false,FLASH_NRESET_CHECKBOX=false,FLASH_NRESET_COUNTER=1,FLASH_STATIC_WAIT_WIDTH=15,FLASH_TYPE=CFI_FLASH,INTENDED_DEVICE_FAMILY=Cyclone IV E,NFLASH_MFC=NUMONYX,NORMAL_MODE=1,NRB_ADDR=65667072,N_FLASH=1,OPTION_BITS_START_ADDRESS=0,PAGE_CLK_DIVISOR=1,PAGE_MODE=0,PFL_RSU_WATCHDOG_ENABLED=false,QFLASH_FAST_SPEED=false,QFLASH_MFC=ALTERA,QSPI_DATA_DELAY=0,QSPI_DATA_DELAY_COUNT=1,RSU_WATCHDOG_COUNTER=100000000,SAFE_MODE_HALT=0,SAFE_MODE_RETRY=1,SAFE_MODE_REVERT=0,SAFE_MODE_REVERT_ADDR=0,TRISTATE_CHECKBOX=false,US_UNIT_COUNTER=1,clock_frequency=100.0,dclk_divisor_combo=1,decompressor_combo=None,disable_crc_check=true,enhanced_flash_programming_combo=Area,fifo_size_combo=16,flash_access_time=100,flash_data_width_combo=16 bits,flash_device_combo=CFI 8 Mbit,flash_nreset_check=false,flash_type_combo=CFI Parallel Flash,fpga_conf_scheme_combo=PS (passive serial),nflash_access_time=100,nflash_data_width_combo=8 bits,nflash_device_combo=NAND 512 Mbit,nflash_mfc_combo=Micron(NAND),nflash_rb_edit=0,num_flash_combo=1,num_nflash_combo=1,num_qflash_combo=4,operating_mode_combo=Flash Programming,option_bit_address=0,qflash_mfc_combo=Macronix,qflash_size_combo=EPCQ 16 Mbit,qspi_size_combo=QSPI 8 Mbit,read_modes_combo=Normal Mode,reconfigure_checkbox=false,rsu_watchdog_checkbox=false,rsu_watchdog_counter_edit=100.0,safe_mode_combo=Halt,safe_mode_revert_edit=0"
+   instancePathKey="Flash2:.:parallel_flash_loader_0"
+   kind="altera_parallel_flash_loader"
+   version="15.0"
+   name="altera_parallel_flash_loader">
+  <parameter name="nflash_access_time" value="100" />
+  <parameter name="nflash_device_combo" value="NAND 512 Mbit" />
+  <parameter name="FIFO_SIZE" value="16" />
+  <parameter name="SAFE_MODE_RETRY" value="1" />
+  <parameter name="operating_mode_combo" value="Flash Programming" />
+  <parameter name="flash_data_width_combo" value="16 bits" />
+  <parameter name="PFL_RSU_WATCHDOG_ENABLED" value="false" />
+  <parameter name="num_flash_combo" value="1" />
+  <parameter name="fpga_conf_scheme_combo" value="PS (passive serial)" />
+  <parameter name="FLASH_BURST_EXTRA_CYCLE" value="0" />
+  <parameter name="FEATURES_CFG" value="0" />
+  <parameter name="QSPI_DATA_DELAY_COUNT" value="1" />
+  <parameter name="dclk_divisor_combo" value="1" />
+  <parameter name="rsu_watchdog_counter_edit" value="100.0" />
+  <parameter name="TRISTATE_CHECKBOX" value="false" />
+  <parameter name="option_bit_address" value="0" />
+  <parameter name="nflash_rb_edit" value="0" />
+  <parameter name="ENHANCED_FLASH_PROGRAMMING" value="false" />
+  <parameter name="CLK_DIVISOR" value="1" />
+  <parameter name="rsu_watchdog_checkbox" value="false" />
+  <parameter name="QFLASH_FAST_SPEED" value="false" />
+  <parameter name="BURST_MODE" value="0" />
+  <parameter name="flash_type_combo" value="CFI Parallel Flash" />
+  <parameter name="disable_crc_check" value="true" />
+  <parameter name="FLASH_NRESET_COUNTER" value="1" />
+  <parameter name="safe_mode_combo" value="Halt" />
+  <parameter name="QFLASH_MFC" value="ALTERA" />
+  <parameter name="EXTRA_ADDR_BYTE" value="0" />
+  <parameter name="QSPI_DATA_DELAY" value="0" />
+  <parameter name="read_modes_combo" value="Normal Mode" />
+  <parameter name="ADDR_WIDTH" value="19" />
+  <parameter name="CONF_DATA_WIDTH" value="1" />
+  <parameter name="FLASH_NRESET_CHECKBOX" value="false" />
+  <parameter name="CONF_WAIT_TIMER_WIDTH" value="16" />
+  <parameter name="BURST_MODE_NUMONYX" value="0" />
+  <parameter name="num_nflash_combo" value="1" />
+  <parameter name="INTENDED_DEVICE_FAMILY" value="Cyclone IV E" />
+  <parameter name="FLASH_TYPE" value="CFI_FLASH" />
+  <parameter name="DISABLE_CRC_CHECKBOX" value="false" />
+  <parameter name="NRB_ADDR" value="65667072" />
+  <parameter name="OPTION_BITS_START_ADDRESS" value="0" />
+  <parameter name="safe_mode_revert_edit" value="0" />
+  <parameter name="flash_device_combo" value="CFI 8 Mbit" />
+  <parameter name="BURST_MODE_INTEL" value="0" />
+  <parameter name="SAFE_MODE_REVERT_ADDR" value="0" />
+  <parameter name="BURST_MODE_SPANSION" value="0" />
+  <parameter name="US_UNIT_COUNTER" value="1" />
+  <parameter name="FLASH_DATA_WIDTH" value="16" />
+  <parameter name="reconfigure_checkbox" value="false" />
+  <parameter name="SAFE_MODE_REVERT" value="0" />
+  <parameter name="SAFE_MODE_HALT" value="0" />
+  <parameter name="nflash_mfc_combo" value="Micron(NAND)" />
+  <parameter name="PAGE_MODE" value="0" />
+  <parameter name="fifo_size_combo" value="16" />
+  <parameter name="decompressor_combo" value="None" />
+  <parameter name="N_FLASH" value="1" />
+  <parameter name="qflash_size_combo" value="EPCQ 16 Mbit" />
+  <parameter name="enhanced_flash_programming_combo" value="Area" />
+  <parameter name="RSU_WATCHDOG_COUNTER" value="100000000" />
+  <parameter name="flash_access_time" value="100" />
+  <parameter name="FEATURES_PGM" value="1" />
+  <parameter name="NFLASH_MFC" value="NUMONYX" />
+  <parameter name="BURST_MODE_LATENCY_COUNT" value="4" />
+  <parameter name="nflash_data_width_combo" value="8 bits" />
+  <parameter name="DECOMPRESSOR_MODE" value="NONE" />
+  <parameter name="num_qflash_combo" value="4" />
+  <parameter name="DCLK_DIVISOR" value="1" />
+  <parameter name="clock_frequency" value="100.0" />
+  <parameter name="qspi_size_combo" value="QSPI 8 Mbit" />
+  <parameter name="FLASH_ECC_CHECKBOX" value="false" />
+  <parameter name="PAGE_CLK_DIVISOR" value="1" />
+  <parameter name="NORMAL_MODE" value="1" />
+  <parameter name="FLASH_STATIC_WAIT_WIDTH" value="15" />
+  <parameter name="qflash_mfc_combo" value="Macronix" />
+  <parameter name="flash_nreset_check" value="false" />
+  <generatedFiles>
+   <file
+       path="C:/altera/15.0/quartus/test_SDcard/Example/db/ip/Flash2/submodules/altera_parallel_flash_loader.v"
+       type="VERILOG"
+       attributes="" />
+  </generatedFiles>
+  <childGeneratedFiles/>
+  <sourceFiles>
+   <file
+       path="C:/altera/15.0/ip/altera/altera_parallel_flash_loader/altera_parallel_flash_loader_hw.tcl" />
+  </sourceFiles>
+  <childSourceFiles/>
+  <instantiator instantiator="Flash2" as="parallel_flash_loader_0" />
+  <messages>
+   <message level="Debug" culprit="Flash2">queue size: 0 starting:altera_parallel_flash_loader "submodules/altera_parallel_flash_loader"</message>
+   <message level="Info" culprit="parallel_flash_loader_0">generating top-level entity altera_parallel_flash_loader</message>
+   <message level="Info" culprit="parallel_flash_loader_0"><![CDATA["<b>Flash2</b>" instantiated <b>altera_parallel_flash_loader</b> "<b>parallel_flash_loader_0</b>"]]></message>
+  </messages>
+ </entity>
+</deploy>
